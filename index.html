@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Check Your Reason</title>
+</head>
+<body>
+    <div class="container">
+        <h4>LETS CHECK IF YOUR THALA ENOUGH!!</h4>
+        <form id="thalaForm">
+            <label for="userInput">Enter any value:</label>
+            <input type="text" id="userInput" name="userInput" required>
+            <button type="submit">lets check!</button>
+        </form>
+    </div>
+
+    <div id="resultContainer" class="result-container"></div>
+
+    <script>
+        document.getElementById("thalaForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var userInput = document.getElementById("userInput").value;
+            var resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = ''; 
+
+            if (/^\d+$/.test(userInput)) {
+                
+                var digitSum = userInput.split('').reduce(function(acc, digit) {
+                    return acc + parseInt(digit);
+                }, 0);
+
+                if (digitSum === 7) {
+                    showThalaVideo(resultContainer);
+                } else {
+                    showNotThalaImages(resultContainer);
+                }
+            } else if (/^[a-zA-Z]+$/.test(userInput)) {
+            
+                if (userInput.length === 7) {
+                    showThalaVideo(resultContainer);
+                } else {
+                    showNotThalaImages(resultContainer);
+                }
+            } else {
+                
+                showInvalidInput(resultContainer);
+            }
+        });
+
+        function showThalaVideo(container) {
+            var resultText = document.createElement("p");
+            resultText.textContent = "Your Thala for a reason!";
+            resultText.style.color ="#40e0d0	";
+            
+            resultText.setAttribute("style", "font-size: 50px;");
+            container.appendChild(resultText);
+
+            var video = document.createElement("iframe");
+            video.width = "350";
+            video.height = "350";
+            video.src = "bole jo koyal.mp4";
+            container.appendChild(video);
+        }
+
+        function showNotThalaImages(container) {
+            var resultText = document.createElement("p");
+            resultText.textContent = "Not Thala enough.";
+            resultText.style.color ="#40e0d0	";
+            resultText.setAttribute("style", "font-size: 50px;");
+            container.appendChild(resultText);
+
+            var image1 = document.createElement("img");
+            image1.src = "dhoniangry.avif";
+            image1.width = "350";
+            image1.height = "350";
+            container.appendChild(image1);
+
+            var image2 = document.createElement("img");
+            image2.src = "dhoniangry2.jpg";
+            image2.width = "350";
+            image2.height = "350";
+            container.appendChild(image2);
+        }
+
+        function showInvalidInput(container) {
+            var resultText = document.createElement("p");
+            resultText.textContent = "Invalid input. Please enter either a word or a number.";
+            container.appendChild(resultText);
+        }
+    </script>
+</body>
+</html>
+
